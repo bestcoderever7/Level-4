@@ -48,6 +48,7 @@ public class JUnit4 {
 		assertEquals("lalala", FileEncryptor.decrypt(decryptMe));
 	}
 
+	@Test 
 	public void testEverythingTogether() throws Exception {
 		String secretfileName = "june's secrets";
 		File secretFile = new File(secretfileName);

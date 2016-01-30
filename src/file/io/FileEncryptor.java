@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class FileEncryptor {
 
@@ -36,10 +37,38 @@ public class FileEncryptor {
 		return s;
 	}
 
-	public static String encrypt(String encryptMe) {
+	public static String encrypt(String encryptMe) throws IOException {
 		// TODO Auto-generated method stub
-		encryptMe = encryptMe.replaceAll("l", "n");
-		encryptMe = encryptMe.replaceAll("a", "c");
+		String placeholder = encryptMe;
+		encryptMe = "";
+		HashMap<Integer, String> getLetter = new HashMap<Integer, String>();
+		HashMap<String, Integer> getNumber = new HashMap<String, Integer>();
+		File file = new File("Directory/key");
+		FileReader fr = new FileReader(file);
+		BufferedReader reader = new BufferedReader(fr);
+		int lines = 0;
+		String line = "";
+		String line2 = "";
+		String line3 = "";
+		while(((line = reader.readLine())) != null)
+		{
+			System.out.println(line);
+			getLetter.put(Integer.parseInt(line), reader.readLine());
+			getNumber.put(reader.readLine(), Integer.parseInt(reader.readLine()));
+		}
+		int length = placeholder.length();
+		for(int i = 0; i < length; i++)
+		{
+			int number = getNumber.get(Character.toString(placeholder.charAt(i))) - 2;
+			if(number == 0)
+			{
+				number = 26;
+			} else if(number == -1)
+			{
+				number = 25;
+			}
+			encryptMe = encryptMe + getLetter.get(number);
+		}
 		return encryptMe;
 	}
 
