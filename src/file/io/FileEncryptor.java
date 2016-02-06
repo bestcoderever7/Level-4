@@ -28,8 +28,7 @@ public class FileEncryptor {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String s = "";
 		String line = reader.readLine();
-		while(line!=null)
-		{
+		while (line != null) {
 			s = s + line;
 			line = reader.readLine();
 		}
@@ -39,35 +38,36 @@ public class FileEncryptor {
 
 	public static String encrypt(String encryptMe) throws IOException {
 		// TODO Auto-generated method stub
-		String placeholder = encryptMe;
-		encryptMe = "";
+		System.out.println("called");
 		HashMap<Integer, String> getLetter = new HashMap<Integer, String>();
 		HashMap<String, Integer> getNumber = new HashMap<String, Integer>();
 		File file = new File("Directory/key");
 		FileReader fr = new FileReader(file);
 		BufferedReader reader = new BufferedReader(fr);
-		int lines = 0;
 		String line = "";
-		String line2 = "";
-		String line3 = "";
-		while(((line = reader.readLine())) != null)
-		{
-			System.out.println(line);
-			getLetter.put(Integer.parseInt(line), reader.readLine());
-			getNumber.put(reader.readLine(), Integer.parseInt(reader.readLine()));
+		while (((line = reader.readLine())) != null) {
+			getNumber.put(line.substring(3), Integer.parseInt(line.substring(0, 2)));
+			getLetter.put(Integer.parseInt(line.substring(0, 2)), line.substring(3));
 		}
-		int length = placeholder.length();
-		for(int i = 0; i < length; i++)
-		{
-			int number = getNumber.get(Character.toString(placeholder.charAt(i))) - 2;
-			if(number == 0)
-			{
-				number = 26;
-			} else if(number == -1)
-			{
-				number = 25;
+		reader.close();
+		fr.close();
+		String backup = encryptMe;
+		encryptMe = "";
+		int i = 0;
+		while (encryptMe.length() < backup.length()) {
+			if (Character.toString(backup.charAt(i)).equals(" ")) {
+				encryptMe = encryptMe + Character.toString(backup.charAt(i));
+			} else {
+				System.out.println(Character.toString(backup.charAt(i)));
+				int num = (getNumber.get(Character.toString(backup.charAt(i)))) + 2;
+				if (num == 27) {
+					num = 1;
+				} else if (num == 28) {
+					num = 2;
+				}
+				encryptMe = encryptMe + getLetter.get(num);
 			}
-			encryptMe = encryptMe + getLetter.get(number);
+			i++;
 		}
 		return encryptMe;
 	}
@@ -88,10 +88,38 @@ public class FileEncryptor {
 		writer.close();
 	}
 
-	public static Object decrypt(String decryptMe) {
+	public static Object decrypt(String decryptMe) throws NumberFormatException, IOException {
 		// TODO Auto-generated method stub
-		decryptMe = decryptMe.replaceAll("n", "l");
-		decryptMe = decryptMe.replaceAll("c", "a");
+		HashMap<Integer, String> getLetter = new HashMap<Integer, String>();
+		HashMap<String, Integer> getNumber = new HashMap<String, Integer>();
+		File file = new File("Directory/key");
+		FileReader fr = new FileReader(file);
+		BufferedReader reader = new BufferedReader(fr);
+		String line = "";
+		while (((line = reader.readLine())) != null) {
+			getNumber.put(line.substring(3), Integer.parseInt(line.substring(0, 2)));
+			getLetter.put(Integer.parseInt(line.substring(0, 2)), line.substring(3));
+		}
+		reader.close();
+		fr.close();
+		String backup = decryptMe;
+		decryptMe = "";
+		int i = 0;
+		while (decryptMe.length() < backup.length()) {
+			if (Character.toString(backup.charAt(i)).equals(" ")) {
+				decryptMe = decryptMe + Character.toString(backup.charAt(i));
+			} else {
+				System.out.println(Character.toString(backup.charAt(i)));
+				int num = (getNumber.get(Character.toString(backup.charAt(i)))) - 2;
+				if (num == 0) {
+					num = 26;
+				} else if (num == -1) {
+					num = 25;
+				}
+				decryptMe = decryptMe + getLetter.get(num);
+			}
+			i++;
+		}
 		return decryptMe;
 	}
 

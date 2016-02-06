@@ -51,7 +51,7 @@ public class JUnit4 {
 	@Test 
 	public void testEverythingTogether() throws Exception {
 		String secretfileName = "june's secrets";
-		File secretFile = new File(secretfileName);
+		File secretFile = new File("Directory/" + secretfileName);
 		String stuffToEncrypt = FileEncryptor.readFileContents(secretFile);
 		String encryptedStuff = FileEncryptor.encrypt(stuffToEncrypt);
 		FileEncryptor.saveStuffInAFile(encryptedStuff, secretFile);
