@@ -18,10 +18,18 @@ public class NumberCubeTest {
 
 	@Test
 	public void testPartB() throws Exception {
-		int[] testValues = { 1, 5, 5, 2, 2, 2, 5, 5};
-		assertEquals(3, NumberCubeQuestion.getLongestRun(testValues));
-		int[] testValues2 = { 1, 5, 5, 4, 3, 1, 2, 2, 2, 2, 6, 1, 3, 3, 3, 5, 5, 5 };
-		assertEquals(6, NumberCubeQuestion.getLongestRun(testValues2));
+		int[] testValues = NumberCubeQuestion.toss(2);
+		NumberCubeQuestion.getLongestRun(testValues);
+		int[] testValues2 = NumberCubeQuestion.toss(13);
+		NumberCubeQuestion.getLongestRun(testValues2);
+	}
+	
+	@Test
+	public void testPartC()
+	{
+		int[] die1 = NumberCubeQuestion.toss(6);
+		int[] die2 = NumberCubeQuestion.toss(6);
+		NumberCubeQuestion.answerQuestions(die1, die2);
 	}
 
 }
