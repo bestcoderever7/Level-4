@@ -30,6 +30,8 @@ public class TokenPass {
 			}
 			zero = true;
 		}
+		printBoard(3);
+		System.out.println("\n");
 	}
 
 	public void printBoard(int playerCount) {
@@ -46,7 +48,6 @@ public class TokenPass {
 	 * has not changed.
 	 */
 	public void distributeCurrentPlayerTokens(int playerCount) {
-		printBoard(playerCount);
 		currentPlayer = new Random().nextInt(playerCount);
 		System.out.println("(" + currentPlayer + ")");
 		boolean first = true;
@@ -60,7 +61,7 @@ public class TokenPass {
 				}
 				first = false;
 			} else {
-				if (board[currentPlayer] != 0) {
+				if (board[currentPlayer] != 0 && currentPlayer != i) {
 					// System.out.println("2");
 					board[i]++;
 					board[currentPlayer]--;
@@ -73,6 +74,7 @@ public class TokenPass {
 			// System.out.println("4");
 		}
 		printBoard(3);
+		System.out.println("\n");
 	}
 	// There may be instance variables, constructors, and methods that are not shown.
 }
