@@ -4,7 +4,7 @@ public class GeneralPractitioner extends Doctor{
 
 	public Object makesHouseCalls() {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	public void assignPatient(Patient patient) {
@@ -12,7 +12,7 @@ public class GeneralPractitioner extends Doctor{
 		
 	}
 
-	public List<Doctor> getPatients() {
+	public List<Patient> getPatients() {
 		// TODO Auto-generated method stub
 		return null;
 	}
