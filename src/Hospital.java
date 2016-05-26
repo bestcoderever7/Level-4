@@ -10,10 +10,10 @@ public class Hospital {
 		doctorList.add(generalPractitioner);
 	}
 
-//	public void addDoctor(Surgeon generalPractitioner) {
-//		// TODO Auto-generated method stub
-//		list.add(generalPractitioner);
-//	}
+	// public void addDoctor(Surgeon generalPractitioner) {
+	// // TODO Auto-generated method stub
+	// list.add(generalPractitioner);
+	// }
 
 	public List<Doctor> getDoctors() {
 		// TODO Auto-generated method stub
@@ -30,13 +30,24 @@ public class Hospital {
 		return patientList;
 	}
 
-	public void assignPatientsToDoctors() {
+	public void assignPatientsToDoctors() throws Exception {
 		// TODO Auto-generated method stub
-		
+		System.out.println(patientList.size());
+		int patientsNotAssignedToDoctors = patientList.size();
+		int patient = 0;
+		while (patientsNotAssignedToDoctors > 0) {
+			for (int i = 0; i < doctorList.size(); i++) {
+				doctorList.get(i).assignPatient(patientList.get(patient));
+				patient++;
+				patientsNotAssignedToDoctors--;
+				if(patientsNotAssignedToDoctors == 0)
+				{
+					break;
+				}
+			}
+		}
 	}
 
-		// TODO Auto-generated method stub
-		
-	}
+	// TODO Auto-generated method stub
 
-
+}
