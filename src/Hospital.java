@@ -4,30 +4,20 @@ import java.util.List;
 public class Hospital {
 	ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
 	ArrayList<Patient> patientList = new ArrayList<Patient>();
+	ArrayList<Zombie> zombieList = new ArrayList<Zombie>();
 
-	public void addDoctor(Doctor generalPractitioner) {
-		// TODO Auto-generated method stub
-		doctorList.add(generalPractitioner);
-	}
-
-	// public void addDoctor(Surgeon generalPractitioner) {
-	// // TODO Auto-generated method stub
-	// list.add(generalPractitioner);
-	// }
-
-	public List<Doctor> getDoctors() {
+	public ArrayList<Doctor> getDoctors() {
 		// TODO Auto-generated method stub
 		return doctorList;
 	}
 
-	public void addPatient(Patient patient) {
+	public void add(Object obj) {
 		// TODO Auto-generated method stub
-		patientList.add(patient);
-	}
-
-	public List<Patient> getPatients() {
-		// TODO Auto-generated method stub
-		return patientList;
+		if (obj instanceof Patient) {
+			patientList.add((Patient) obj);
+		} else if (obj instanceof Doctor){
+			doctorList.add((Doctor) obj);
+		}
 	}
 
 	public void assignPatientsToDoctors() throws Exception {
@@ -40,12 +30,39 @@ public class Hospital {
 				doctorList.get(i).assignPatient(patientList.get(patient));
 				patient++;
 				patientsNotAssignedToDoctors--;
-				if(patientsNotAssignedToDoctors == 0)
-				{
+				if (patientsNotAssignedToDoctors == 0) {
 					break;
 				}
 			}
 		}
+	}
+
+	public void makeDoctorsWork() {
+		// TODO Auto-generated method stub
+		for(Doctor d : doctorList)
+		{
+			if (d.isEvil == false) {
+				for (Patient p : d.getPatients()) {
+					p.checkPulse();
+				}
+			} else {
+				for (Patient p : d.getPatients()) {
+					p.kill();
+					zombieList.add(new Zombie());
+					patientList.remove(d.getPatients().size() - 1);
+				}
+			}
+		}
+	}
+
+	public List<Zombie> getZombies() {
+		// TODO Auto-generated method stub
+		return zombieList;
+	}
+	
+	public ArrayList<Patient> getPatients() {
+		// TODO Auto-generated method stub
+		return patientList;
 	}
 
 	// TODO Auto-generated method stub

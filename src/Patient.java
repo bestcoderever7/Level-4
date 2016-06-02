@@ -2,7 +2,8 @@
 public class Patient {
 
 	boolean pulseChecked = false;
-	public Object feelsCaredFor() {
+	boolean isAlive = true;
+	public boolean feelsCaredFor() {
 		// TODO Auto-generated method stub
 		return pulseChecked;
 	}
@@ -10,6 +11,16 @@ public class Patient {
 	public void checkPulse() {
 		// TODO Auto-generated method stub
 		pulseChecked = true;
+	}
+
+	public void kill() {
+		// TODO Auto-generated method stub
+		isAlive = false;
+	}
+
+	public Object isAlive() {
+		// TODO Auto-generated method stub
+		return isAlive;
 	}
 
 }
